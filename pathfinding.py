@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+pointList = []
+
 def CreateWindow():
     global img
     img = np.zeros((512, 512, 1), dtype = "uint8")
@@ -11,6 +13,7 @@ def CreatePoints(event, x, y, flags, params):
         print(x, y)
         cv2.circle(img, (x,y), 1, (225,225,0), -1)
         cv2.imshow("Window", img)
+        pointList.append((x,y))
 
 def main():
     print("Pathfinding for 1507")
@@ -22,3 +25,4 @@ def main():
 if __name__ == "__main__":
     main()
     cv2.waitKey(0)
+    print(pointList)
