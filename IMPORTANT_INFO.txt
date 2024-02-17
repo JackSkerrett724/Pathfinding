@@ -5,6 +5,7 @@ Angles are for the swerve wheels
 Angles assume 0 is to the right (middle of the field)
 Angles work counterclockwise (top of the screen is 90)
 Standard coordinate plane stuff
+DO NOT CLICK THE SAME POINT TWICE IN A ROW (Division by 0 error)
 
                    90
                    /\

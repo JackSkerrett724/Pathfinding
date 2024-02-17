@@ -63,14 +63,40 @@ def CreatePath(event, x, y, flags, params):
         print(relativeList)
         with open(filename+".csv", 'w', newline='') as file:
             writer = csv.writer(file)
-            field = ["Distance (In) ", " Direction (Deg)"]
-
+            field = ["Distance (In) ", " Direction (Deg)", " Points(x,y)"]
             writer.writerow(field)
             for index, dist in enumerate(distances):
-                writer.writerow([dist,angles[index]])
+                writer.writerow([dist,angles[index], pointList[index]])
+            writer.writerow([None, None, pointList[-1]])
+            
         print(f"Your values are now in {filename}.csv")
+    
 
+def ViewPath(file):
+        CreateWindow()
+        i = 0
+        readList = []
+        with open(file+".csv") as points:
+            for row in points:
+                if i == 0:
+                    i = 1
+                else:
+                    x = row.split(",")[2]
+                    y = row.split(",")[3]
+                    x = x.replace("(", "")
+                    x = x.replace( '"', "")
+                    y = y.replace(")", "")
+                    y = y.replace( '"', "")
+                    readList.append((int(x),int(y)))
+            for index, point in enumerate(readList):
+                print(point)
+                cv2.circle(img, (point[0],point[1]), 3, (0,225,0), -1)
+                cv2.imshow("1507 Pathfinding", img)
+                if index+1 < len(readList):
+                    cv2.line(img, point, readList[index+1], (0,225,0), 2)
+                    cv2.imshow("1507 Pathfinding", img)
 
+            
 
 def main():
     global filename
@@ -81,6 +107,11 @@ def main():
         print("Left Click To Place Points, Right Click To Finish Placing Points")
         CreateWindow()
         cv2.setMouseCallback("1507 Pathfinding", CreatePath)
+    elif choice.upper() == 'R':
+        file = input("What file would you like to view from? (do not add file extention): ")
+        ViewPath(file)
+
+
 
 
 if __name__ == "__main__":
