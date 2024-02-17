@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import math
+import csv
 
 
 #1 Pixel = .996 inches
@@ -43,7 +44,7 @@ def CreatePath(event, x, y, flags, params):
                 dx = pointList[index+1][0] - point[0] 
                 dy = pointList[index+1][1] - point[1] 
                 d = math.sqrt(dx**2 + dy**2)
-                distances.append(P2I(d)) ## distances in Inches that the robot can use
+                distances.append(round(P2I(d),2)) ## distances in Inches that the robot can use
                 #################################
         #########ANGLE CALC##############
         for index, point in enumerate(relativeList):
@@ -56,11 +57,18 @@ def CreatePath(event, x, y, flags, params):
                 theta = math.degrees(theta) ## convert to degrees
                 if(dy < 0):
                     theta = 360 - theta
-                angles.append(theta) 
+                angles.append(round(theta,2)) 
         ######################
         print(distances)
         print(angles)
         print(relativeList)
+        with open("numbers.csv", 'w', newline='') as file:
+            writer = csv.writer(file)
+            field = ["Distance (In) ", " Direction (Deg)"]
+
+            writer.writerow(field)
+            for index, dist in enumerate(distances):
+                writer.writerow([dist,angles[index]])
 
 
 
