@@ -3,7 +3,6 @@ import numpy as np
 import math
 import csv
 
-
 #1 Pixel = .996 inches
 P2I = lambda p: p*.996 ## Convert Pixels to Inches 
 first = False
@@ -18,11 +17,11 @@ def CreateWindow():
     img = cv2.imread("2024Field.png")
     img = cv2.resize(img, (0,0), fx=0.25, fy=0.25) 
     #img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
-    cv2.imshow("Window", img )
+    cv2.imshow("1507 Pathfinding", img )
 
 
 def CreatePath(event, x, y, flags, params):
-    global first, origin
+    global first, origin, filename
     if event == cv2.EVENT_LBUTTONDOWN:
         if not first:
             origin = (x,y)
@@ -30,7 +29,7 @@ def CreatePath(event, x, y, flags, params):
             print(f"origin {origin}")
         print(x, y)
         cv2.circle(img, (x,y), 3, (0,225,0), -1)
-        cv2.imshow("Window", img)
+        cv2.imshow("1507 Pathfinding", img)
         pointList.append((x ,y))
     elif event == cv2.EVENT_RBUTTONDOWN:
         for index, point in enumerate(pointList): 
@@ -39,7 +38,7 @@ def CreatePath(event, x, y, flags, params):
         for index, point in enumerate(pointList):
             if index+1 < len(pointList):
                 cv2.line(img, point, pointList[index+1], (0,225,0), 2)
-                cv2.imshow("Window", img)
+                cv2.imshow("1507 Pathfinding", img)
                 #########DISTANCE CALC###########
                 dx = pointList[index+1][0] - point[0] 
                 dy = pointList[index+1][1] - point[1] 
@@ -62,21 +61,26 @@ def CreatePath(event, x, y, flags, params):
         print(distances)
         print(angles)
         print(relativeList)
-        with open("numbers.csv", 'w', newline='') as file:
+        with open(filename+".csv", 'w', newline='') as file:
             writer = csv.writer(file)
             field = ["Distance (In) ", " Direction (Deg)"]
 
             writer.writerow(field)
             for index, dist in enumerate(distances):
                 writer.writerow([dist,angles[index]])
+        print(f"Your values are now in {filename}.csv")
 
 
 
 def main():
+    global filename
     print("Pathfinding for 1507")
-    print("Left Click To Place Points, Right Click To Finish Placing Points")
-    CreateWindow()
-    cv2.setMouseCallback("Window", CreatePath)
+    choice = input("Would you like to place points or read from a CSV file? (P/R):" )
+    if choice.upper() == 'P':
+        filename = input("Name the file you would like your numbers to go to: ")
+        print("Left Click To Place Points, Right Click To Finish Placing Points")
+        CreateWindow()
+        cv2.setMouseCallback("1507 Pathfinding", CreatePath)
 
 
 if __name__ == "__main__":
