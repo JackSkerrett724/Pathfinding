@@ -1,0 +1,21 @@
+IMPORTANT THINGS
+
+Distances are provided in Inches
+Angles are for the swerve wheels
+Angles assume 0 is to the right (middle of the field)
+Angles work counterclockwise (top of the screen is 90)
+Standard coordinate plane stuff
+
+                   90
+                   /\
+                   ||
+                   ||
+                   ||
+                   ||
+  180  <=========================> 0
+                   ||
+                   ||
+                   ||
+                   ||
+                   \/
+                   270

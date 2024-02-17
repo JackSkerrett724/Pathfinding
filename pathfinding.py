@@ -56,7 +56,7 @@ def CreatePath(event, x, y, flags, params):
                 theta = math.degrees(theta) ## convert to degrees
                 if(dy < 0):
                     theta = 360 - theta
-                angles.append(theta)
+                angles.append(theta) 
         ######################
         print(distances)
         print(angles)
