@@ -2,18 +2,18 @@ import cv2
 import numpy as np
 import math
 
-#263 pixels = 224 inches
-#1 Pixel = .85 inches
-P2I = lambda p: p*.85 ## Convert Pixels to Inches
+
+#1 Pixel = .996 inches
+P2I = lambda p: p*.996 ## Convert Pixels to Inches 
 pointList = []
 distances = []
 angles = []
 def CreateWindow():
     global img
     #img = np.zeros((512, 512, 1), dtype = "uint8")
-    img = cv2.imread("2023Field.png")
-    img = cv2.resize(img, (768, 372)) 
-    img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    img = cv2.imread("2024Field.png")
+    img = cv2.resize(img, (0,0), fx=0.25, fy=0.25) 
+    #img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
     cv2.imshow("Window", img )
 
 def CreatePath(event, x, y, flags, params):
