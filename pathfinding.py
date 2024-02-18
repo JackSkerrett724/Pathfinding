@@ -81,7 +81,7 @@ def ViewPath(file):
                 if i == 0:
                     i = 1
                 else:
-                    x = row.split(",")[2]
+                    x = row.split(",")[2] ## This doesnt look pretty but its so you can get rid of the () and "" attatched to the numbers
                     y = row.split(",")[3]
                     x = x.replace("(", "")
                     x = x.replace( '"', "")
